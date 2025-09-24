@@ -14,6 +14,6 @@ public:
 	virtual void draw();
 private:
 	// Scene where this object belongs to
-	Scene* parentScene;
+	Scene* parentScene; 
 };
 
