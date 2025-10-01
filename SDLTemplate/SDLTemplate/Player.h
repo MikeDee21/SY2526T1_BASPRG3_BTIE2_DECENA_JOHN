@@ -12,6 +12,9 @@ public:
 	virtual void start() override;
 	virtual void update() override;
 	virtual void draw() override; 
+
+	int getPositionX();
+	int getPositionY();
 private:
 	int x;
 	int y; 
