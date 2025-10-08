@@ -16,6 +16,11 @@ public:
 	virtual void draw() override;
 	virtual void setPlayerTarget(Player* player);
 	virtual void setPosition(int xPos, int yPos);
+
+	int getPositionX(); 
+	int getPositionY();
+	int getHeight();
+	int getWidth();
 private:
 	int x;
 	int y;

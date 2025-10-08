@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include"Player.h"
 #include "Enemy.h"
+#include <vector> 
+#include "text.h" 
 
 class GameScene : public Scene
 {
@@ -20,6 +22,11 @@ private:
 	float SpawnTime;
 	float currSpawnTime; 
 	std::vector<Enemy*> spawnedEnemies;
+	std::vector<Enemy*>Explosion;
 	void SpawnOpp(); 
+	void DeSpawnOpp(Enemy* enemy); 
+	SDL_Texture* wallPaper; 
+
+	int points; 
 };
 

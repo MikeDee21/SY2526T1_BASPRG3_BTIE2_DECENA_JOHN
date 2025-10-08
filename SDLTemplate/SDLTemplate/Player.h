@@ -4,6 +4,7 @@
 #include "draw.h"
 #include "Bullet.h" 
 #include <vector> 
+#include "SoundManager.h"
 
 class Player : public GameObject
 {
@@ -15,6 +16,10 @@ public:
 
 	int getPositionX();
 	int getPositionY();
+	int getHeight();
+	int getWidth(); 
+	bool getIsAlive();
+	void doDeath(); 
 private:
 	int x;
 	int y; 
@@ -27,8 +32,10 @@ private:
 	float SecReloadTime; 
 	int defaultSpeed; 
 	int burstSpeed; 
+	bool isAlive; 
 	std::vector<Bullet*>bullets; 
 
-	SDL_Texture* texture; 
+	SDL_Texture* texture;
+	Mix_Chunk* sound; 
 };
 

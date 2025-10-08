@@ -55,7 +55,7 @@ void Enemy::update()
 		calcSlope(playerTarget->getPositionX(), playerTarget->getPositionY(), x, y, &dx, &dy);
 
 
-		Bullet* bullet = new Bullet(x + width, y - 2 + height/2, dx, dy, 10); 
+		Bullet* bullet = new Bullet(x + width, y - 2 + height/2, dx, dy, 10, Side::ENEMY_SIDE);
 		bullets.push_back(bullet);
 		getScene()->addGameObject(bullet);
 		bullet->start();
@@ -88,4 +88,22 @@ void Enemy::setPosition(int xPos, int yPos)
 {
 	this->x = xPos;
 	this->y = yPos; 
+}
+int Enemy::getPositionX()
+{
+	return x;
+}
+int Enemy::getPositionY()
+{
+	return y;
+}
+
+int Enemy::getHeight()
+{
+	return height;
+}
+
+int Enemy::getWidth()
+{
+	return width;
 }

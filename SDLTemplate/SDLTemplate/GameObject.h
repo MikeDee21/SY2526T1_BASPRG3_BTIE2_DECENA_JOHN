@@ -15,5 +15,6 @@ public:
 private:
 	// Scene where this object belongs to
 	Scene* parentScene; 
+	
 };
 
