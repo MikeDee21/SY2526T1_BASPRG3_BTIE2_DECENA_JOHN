@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include <vector> 
 #include "text.h" 
+#include "Explosion.h" 
 
 class GameScene : public Scene
 {

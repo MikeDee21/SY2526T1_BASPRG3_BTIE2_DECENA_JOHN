@@ -30,7 +30,7 @@ void Player::start()
 	// Query the texture to set width 
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);  
 
-	sound = SoundManager::loadSound("sound/334227_jradcoolness_laser.ogg"); 
+	sound = SoundManager::loadSound("sound/334227__jradcoolness__laser.ogg"); 
 }
 
 void Player::update()
@@ -55,7 +55,6 @@ void Player::update()
 	{
 		y += speed;
 	}
-
 
 	if (app.keyboard[SDL_SCANCODE_A])
 	{
@@ -82,17 +81,18 @@ void Player::update()
 	}
 	if (app.keyboard[SDL_SCANCODE_G] && currentReloadTime == 0)
 	{
+		SoundManager::playSound(sound); 
 		Bullet* bullet = new Bullet(x + width, y, 1, 0, 10, Side::PLAYER_SIDE); 
-		bullets.push_back(bullet);
+		bullets.push_back(bullet); 
 		getScene()->addGameObject(bullet);
-		bullet->start();
+		bullet->start(); 
 
 		Bullet* bullet2 = new Bullet(x + width, y + height, 1, 0, 10, Side::PLAYER_SIDE); 
 		bullets.push_back(bullet2);
 		getScene()->addGameObject(bullet2);
 		bullet2->start();
 
-		currentReloadTime = SecReloadTime; 
+		currentReloadTime = SecReloadTime;  
 	}
 
 	if (app.keyboard[SDL_SCANCODE_LSHIFT]) 
@@ -100,7 +100,7 @@ void Player::update()
 		speed = burstSpeed; 
 	}
 
-	if (app.keyboard[SDL_SCANCODE_BACKSPACE])
+	if (app.keyboard[SDL_SCANCODE_BACKSPACE])         
 	{
 		speed = defaultSpeed; 
 	}
@@ -127,8 +127,6 @@ int Player::getHeight()
 {
 	return height; 
 }
-
-
 
 int Player::getWidth()
 {

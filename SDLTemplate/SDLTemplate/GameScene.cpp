@@ -1,7 +1,8 @@
 #include "GameScene.h"
-#include "Explosion.h"
 
-GameScene::GameScene()
+
+
+GameScene::GameScene() 
 {
 	// Register and add game objects on constructor
 	player = new Player();
@@ -61,13 +62,13 @@ void GameScene::update()
 			{
 				int collision = checkCollision(
 			player->getPositionX(), player->getPositionY(), player->getWidth(), player->getHeight(), 
-			bullet->getPositionX(), bullet->getPositionX(), bullet->getWidth(), bullet->getHeight()
+			bullet->getPositionX(), bullet->getPositionY(), bullet->getWidth(), bullet->getHeight() 
 				);
 
 				if (collision == 1)
 				{
 					player->doDeath(); 
-					break; 
+					break;  
 				}
 			}
 
@@ -79,14 +80,19 @@ void GameScene::update()
 
 					int collision = checkCollision(
 
-						currentEnemy->getPositionX(), currentEnemy->getPositionY(), currentEnemy->getWidth(), currentEnemy->getHeight(),
-						bullet->getPositionX(), bullet->getPositionX(), bullet->getWidth(), bullet->getHeight()
+						currentEnemy->getPositionX(), currentEnemy->getPositionY(), currentEnemy->getWidth(),currentEnemy->getHeight(),
+						bullet->getPositionX(), bullet->getPositionY(), bullet->getWidth(), bullet->getHeight()
 					);
 					if (collision == 1)
 					{
-						DeSpawnOpp(currentEnemy); 
+						Explosion* bomba = new Explosion (currentEnemy->getPositionX(), currentEnemy->getPositionY()); 
+						this->addGameObject(bomba);
+						bomba->start(); 
+
+						DeSpawnOpp(currentEnemy);
+
 						points++; 
-						break; 
+						break;  
 					}
 				}
 			}
