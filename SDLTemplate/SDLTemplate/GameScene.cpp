@@ -8,10 +8,6 @@ GameScene::GameScene()
 	player = new Player();
 	this->addGameObject(player);
 
-	//enemy = new Enemy();
-	//this->addGameObject(enemy);
-	//enemy->setPlayerTarget(player); 
-
 	points = 0; 
 }
 
@@ -35,7 +31,7 @@ void GameScene::start()
 	sound->volume = 10; 
 
 	sound2 = SoundManager::loadSound("sound/PowerTime.ogg");
-	sound2->volume = 10;
+	sound2->volume = 15;
 }
 
 void GameScene::draw()

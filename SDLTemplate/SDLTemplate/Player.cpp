@@ -97,7 +97,7 @@ void Player::update()
 		currentReloadTime = SecReloadTime;  
 	}
 
-	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0 && boostFire == 3)
+	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0 && boostFire >= 3)
 	{
 		SoundManager::playSound(sound);
 		Bullet* bullet = new Bullet(x + width / 2, y + height / 2, 0, -1, 10, Side::PLAYER_SIDE);
