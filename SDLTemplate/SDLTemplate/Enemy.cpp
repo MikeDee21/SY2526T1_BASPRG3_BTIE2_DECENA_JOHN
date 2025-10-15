@@ -15,8 +15,8 @@ void Enemy::start()
 	texture = loadTexture("gfx/enemy.png");
 
 	//initialize to avoid garbage values
-	directionX = -1;
-	directionY = 1;
+	directionX = 1;
+	directionY = -1;
 	width = 0;
 	height = 0;
 	reloadTime = 60;
@@ -32,14 +32,14 @@ void Enemy::start()
 void Enemy::update()
 {
 	x += directionX * speed;
-	y += directionY * speed; 
+	y -= directionY * speed; 
 
 	if (currentDirectionChangeTime > 0)
 		currentDirectionChangeTime--;
 
 	if (currentDirectionChangeTime == 0)
 	{
-		directionY = -directionY;
+		directionX = -directionX;
 		currentDirectionChangeTime = directionChangeTime;
 	}
 

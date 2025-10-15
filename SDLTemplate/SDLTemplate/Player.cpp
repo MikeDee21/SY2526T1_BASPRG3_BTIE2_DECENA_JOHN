@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Scene.h"
 
+
 Player::~Player()
 {
 	for (int i = 0; i < bullets.size(); i++)
@@ -16,17 +17,18 @@ void Player::start()
 	texture = loadTexture("gfx/player.png");
 	
 	//initialize to avoid garbage values
-	x = 100;
-	y = 100;
+	x = 350;
+	y = 550;
 	width = 0; 
 	height = 0;
 	reloadTime = 8;
-	SecReloadTime = 25; 
+	SecReloadTime = 8; 
 	currentReloadTime = 0; 
 	defaultSpeed = 2;
 	speed = defaultSpeed; 
 	burstSpeed = 5;   
 	isAlive = true; 
+	boostFire = 1; 
 	// Query the texture to set width 
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);  
 
@@ -69,25 +71,25 @@ void Player::update()
 	if (currentReloadTime > 0)
 		currentReloadTime--; 
 
-	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0)
+	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0 && boostFire == 1)
 	{
 		SoundManager::playSound(sound); 
-		Bullet* bullet = new Bullet(x + width, y + height/2, 1, 0, 10,Side::PLAYER_SIDE); 
+		Bullet* bullet = new Bullet(x + width/2, y + height/2, 0, -1, 10,Side::PLAYER_SIDE); 
 		getScene()->addGameObject(bullet);
 		bullet->start();
 
-
+		
 		currentReloadTime = reloadTime; 
 	}
-	if (app.keyboard[SDL_SCANCODE_G] && currentReloadTime == 0)
+	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0 && boostFire == 2)
 	{
 		SoundManager::playSound(sound); 
-		Bullet* bullet = new Bullet(x + width, y, 1, 0, 10, Side::PLAYER_SIDE); 
+		Bullet* bullet = new Bullet(x + width, y, 0, -1, 10, Side::PLAYER_SIDE); 
 		bullets.push_back(bullet); 
 		getScene()->addGameObject(bullet);
 		bullet->start(); 
 
-		Bullet* bullet2 = new Bullet(x + width, y + height, 1, 0, 10, Side::PLAYER_SIDE); 
+		Bullet* bullet2 = new Bullet(x - width/6, y, 0, -1, 10, Side::PLAYER_SIDE); 
 		bullets.push_back(bullet2);
 		getScene()->addGameObject(bullet2);
 		bullet2->start();
@@ -95,6 +97,27 @@ void Player::update()
 		currentReloadTime = SecReloadTime;  
 	}
 
+	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0 && boostFire == 3)
+	{
+		SoundManager::playSound(sound);
+		Bullet* bullet = new Bullet(x + width / 2, y + height / 2, 0, -1, 10, Side::PLAYER_SIDE);
+		getScene()->addGameObject(bullet);
+		bullet->start();
+
+		SoundManager::playSound(sound);
+		Bullet* bullet2 = new Bullet(x + width, y, 0, -1, 10, Side::PLAYER_SIDE);
+		bullets.push_back(bullet2);
+		getScene()->addGameObject(bullet2);
+		bullet2->start();
+
+		SoundManager::playSound(sound);
+		Bullet* bullet3 = new Bullet(x - width / 6, y, 0, -1, 10, Side::PLAYER_SIDE);
+		bullets.push_back(bullet3);
+		getScene()->addGameObject(bullet3);
+		bullet3->start();
+
+		currentReloadTime = SecReloadTime;
+	}
 	if (app.keyboard[SDL_SCANCODE_LSHIFT]) 
 	{
 		speed = burstSpeed; 
@@ -141,4 +164,9 @@ bool Player::getIsAlive()
 void Player::doDeath()
 {
 	isAlive = false; 
+}
+
+void Player::BoostFire()
+{
+	boostFire++;   
 }

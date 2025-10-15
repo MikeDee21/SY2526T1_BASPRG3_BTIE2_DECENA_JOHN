@@ -6,6 +6,8 @@
 #include <vector> 
 #include "text.h" 
 #include "Explosion.h" 
+#include "SoundManager.h"
+#include "Powerup.h"
 
 class GameScene : public Scene
 {
@@ -18,16 +20,26 @@ public:
 private:
 	Player* player; 
 	Enemy* enemy; 
-
+	Powerup* ExtraFire;
 	//spawn code
+	
+	
 	float SpawnTime;
 	float currSpawnTime; 
 	std::vector<Enemy*> spawnedEnemies;
-	std::vector<Enemy*>Explosion;
 	void SpawnOpp(); 
 	void DeSpawnOpp(Enemy* enemy); 
-	SDL_Texture* wallPaper; 
 
+	//Powerup spawn code
+	float SpawnTimePowerUp;
+	float CurrSpawnTimePowerUp;
+	std::vector<Powerup*> SimonPower; 
+	void SpawnPowerUp();
+	void DespawnPowerUp(Powerup* ExtraFire); 
+
+	SDL_Texture* wallPaper; 
+	Mix_Chunk* sound;
+	Mix_Chunk* sound2; 
 	int points; 
 };
 

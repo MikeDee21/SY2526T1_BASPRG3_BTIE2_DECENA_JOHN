@@ -20,12 +20,15 @@ public:
 	int getWidth(); 
 	bool getIsAlive();
 	void doDeath(); 
+	void BoostFire(); 
+
 private:
 	int x;
 	int y; 
 	int width;
 	int height;
 
+	int boostFire; 
 	int speed;
 	float reloadTime;
 	float currentReloadTime; 

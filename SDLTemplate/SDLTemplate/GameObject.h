@@ -1,6 +1,7 @@
 #pragma once
 #include "common.h"
 #include "draw.h" 
+
 class Scene;
 class GameObject
 {

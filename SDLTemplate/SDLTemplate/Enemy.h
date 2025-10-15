@@ -29,7 +29,7 @@ private:
 	float directionChangeTime;
 	float currentDirectionChangeTime;
 	int width;
-	int height;
+	int height; 
 
 	int speed;
 	float reloadTime;

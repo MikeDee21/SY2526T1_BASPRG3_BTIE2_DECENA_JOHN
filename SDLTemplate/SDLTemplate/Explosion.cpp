@@ -8,7 +8,7 @@ Explosion::Explosion(int x, int y)
 	this->y = y;
 	this->width = width;
 	this->height = height;
-	duration = 500;
+	duration = 200;
 	MaxDuration = duration;
 }
 
@@ -25,7 +25,10 @@ void Explosion::start()
 void Explosion::update()
 {
 	duration--;
-
+	if (duration == 0)
+	{
+		delete this; 	
+	}
 }
 
 void Explosion::draw()
