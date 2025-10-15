@@ -85,13 +85,13 @@ void GameScene::update()
 				bullet->getPositionX(), bullet->getPositionY(), bullet->getWidth(), bullet->getHeight() 
 				);
 
-				if (collision == 1)
-				{
-					SoundManager::playSound(sound);
-					Explosion* bomba2 = new Explosion(player->getPositionX(), player->getPositionY());
+				if (collision == 1 && player->getIsAlive() == true)
+				{ 
+					SoundManager::playSound(sound); 
+					Explosion* bomba2 = new Explosion(player->getPositionX(), player->getPositionY()); 
 					this->addGameObject(bomba2); 
 					player->doDeath(); 
-					break;  
+					break;   
 				}
 			}
 
