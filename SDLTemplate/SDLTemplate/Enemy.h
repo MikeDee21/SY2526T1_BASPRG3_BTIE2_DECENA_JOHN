@@ -6,10 +6,11 @@
 #include <vector> 
 #include "util.h"
 #include "Player.h"
+#include "SoundManager.h"
 class Enemy : public GameObject
 {
 public:
-	Enemy();
+	Enemy(); 
 	~Enemy(); 
 	virtual void start() override;
 	virtual void update() override;
@@ -21,6 +22,7 @@ public:
 	int getPositionY();
 	int getHeight();
 	int getWidth();
+
 private:
 	int x;
 	int y;
@@ -36,6 +38,7 @@ private:
 	float currentReloadTime;
 	std::vector<Bullet*>bullets;
 	Player* playerTarget; 
+	Mix_Chunk* sound5;
 
 	SDL_Texture* texture;
 };

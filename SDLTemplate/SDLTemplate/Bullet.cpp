@@ -56,6 +56,7 @@ int Bullet::getHeight()
 
 
 
+
 int Bullet::getWidth()
 {
 	return width;

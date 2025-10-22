@@ -31,8 +31,8 @@ private:
 	int boostFire; 
 	int speed;
 	float reloadTime;
-	float currentReloadTime; 
-	float SecReloadTime; 
+	float currentReloadTime;
+	float SecReloadTime;
 	int defaultSpeed; 
 	int burstSpeed; 
 	bool isAlive; 

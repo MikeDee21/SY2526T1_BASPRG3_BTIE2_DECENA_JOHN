@@ -21,6 +21,7 @@ public:
 	int getPositionY();
 	int getWidth();
 	int getHeight();
+
 	Side getSide(); 
 	 
 private:
@@ -33,5 +34,6 @@ private:
 	int speed;
 	float directionX;
 	float directionY;
+
 };
 

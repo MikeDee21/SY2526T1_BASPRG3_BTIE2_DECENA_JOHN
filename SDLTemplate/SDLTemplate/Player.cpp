@@ -22,13 +22,14 @@ void Player::start()
 	width = 0; 
 	height = 0;
 	reloadTime = 8;
-	SecReloadTime = 8; 
 	currentReloadTime = 0; 
 	defaultSpeed = 2;
 	speed = defaultSpeed; 
-	burstSpeed = 5;   
+	burstSpeed = 7;   
 	isAlive = true; 
 	boostFire = 1; 
+	SecReloadTime = 15; 
+
 	// Query the texture to set width 
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);  
 
@@ -39,12 +40,12 @@ void Player::update()
 {
 	for (int i = 0; i < bullets.size(); i++)
 	{
-		if (bullets[i]->getPositionX() > SCREEN_WIDTH)
+		if (bullets[i]->getPositionY() > SCREEN_HEIGHT)
 		{
-			Bullet* bulletToErase = bullets[i];
+			Bullet* bulletToErase = bullets[i]; 
 			bullets.erase(bullets.begin() + i);
 			delete bulletToErase;
-			break;
+			break; 
 		}
 	}
 	if (!isAlive) return;
@@ -94,8 +95,8 @@ void Player::update()
 		getScene()->addGameObject(bullet2);
 		bullet2->start();
 
-		currentReloadTime = SecReloadTime;  
-	}
+		currentReloadTime = SecReloadTime;    
+	} 
 
 	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime == 0 && boostFire >= 3)
 	{
@@ -116,7 +117,7 @@ void Player::update()
 		getScene()->addGameObject(bullet3);
 		bullet3->start();
 
-		currentReloadTime = SecReloadTime;
+		currentReloadTime = SecReloadTime; 
 	}
 	if (app.keyboard[SDL_SCANCODE_LSHIFT]) 
 	{
