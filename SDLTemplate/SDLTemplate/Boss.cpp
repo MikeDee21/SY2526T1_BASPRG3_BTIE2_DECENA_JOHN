@@ -19,7 +19,7 @@ void Boss::start()
     SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 
     // Boss stats
-    BossHealth = 45;
+    BossHealth = 75;
     BossShotCooldown = 12; // frames between shots (adjust for difficulty)
     BossCurrShotTime = 0;
     invulDuration = 5; 

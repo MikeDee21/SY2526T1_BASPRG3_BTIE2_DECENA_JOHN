@@ -36,8 +36,6 @@ void GameScene::start()
 
 	SpawnTimePowerUp = 300;
 
-	
-
 
 	wallPaper = IMG_LoadTexture(app.renderer, "gfx/background.png") ;
 
@@ -49,6 +47,9 @@ void GameScene::start()
 
 	sound3 = SoundManager::loadSound("sound/BossGetHit.ogg");
 	sound3->volume = 15;
+
+	sound4 = SoundManager::loadSound("sound/TomScream.ogg");
+	sound4->volume = 20;
 
 }
 
@@ -64,6 +65,7 @@ void GameScene::draw()
 	{
 		drawText(SCREEN_WIDTH / 2, 530, 255, 0, 0, TEXT_CENTER, "GAME OVER!");
 	}
+
 }
 #pragma region Functions
 
@@ -145,7 +147,8 @@ void GameScene::SpawnBoss()
 
 void GameScene::DespawnBoss(Boss* boss)
 {
-	
+	WaveCountdown = 0; 
+	BlockEnemySpawn = false;
 	int index = -1;
 	for (int i = 0; i < spawnedBoss.size(); i++)
 	{
@@ -161,6 +164,9 @@ void GameScene::DespawnBoss(Boss* boss)
 		spawnedBoss.erase(spawnedBoss.begin() + index);
 		delete boss;
 	}
+
+	
+
 }
 #pragma endregion
 #pragma region Powerup spawners
@@ -298,8 +304,11 @@ void GameScene::update()
 						points++;
 						if (boss->GetBossHealth() <= 0)
 						{
-							
+							SoundManager::playSound(sound);
+							Explosion* bomba2 = new Explosion(boss->getPositionX(), boss->getPositionY());
+							SoundManager::playSound(sound4); 
 							DespawnBoss(boss);
+						
 						}
 						break; 
 					}

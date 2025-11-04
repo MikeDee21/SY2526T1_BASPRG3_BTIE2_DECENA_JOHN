@@ -34,6 +34,7 @@ void Player::start()
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);  
 
 	sound = SoundManager::loadSound("sound/334227__jradcoolness__laser.ogg"); 
+	sound->volume = 20;  
 }
 
 void Player::update()
@@ -90,6 +91,7 @@ void Player::update()
 		getScene()->addGameObject(bullet);
 		bullet->start(); 
 
+		SoundManager::playSound(sound);
 		Bullet* bullet2 = new Bullet(x - width/6, y, 0, -1, 10, Side::PLAYER_SIDE); 
 		bullets.push_back(bullet2);
 		getScene()->addGameObject(bullet2);

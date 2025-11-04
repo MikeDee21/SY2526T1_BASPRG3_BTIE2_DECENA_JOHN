@@ -26,7 +26,7 @@ void Enemy::start()
 	currentDirectionChangeTime = 0; 
 
 	sound5 = SoundManager::loadSound("sound/196914__dpoggioli__laser-gun.ogg");
-	sound5->volume = 10;
+	sound5->volume = 10; 
 
 	// Query the texture to set width 
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
@@ -57,7 +57,7 @@ void Enemy::update()
 		float dy;
 		calcSlope(playerTarget->getPositionX(), playerTarget->getPositionY(), x, y, &dx, &dy);
 
-		Bullet* bullet = new Bullet(x + width, y - 2 + height/2, dx, dy, 10, Side::ENEMY_SIDE);
+		Bullet* bullet = new Bullet(x + width, y - 2 + height/2, dx, dy, 5, Side::ENEMY_SIDE);
 		bullets.push_back(bullet);
 		getScene()->addGameObject(bullet);
 		bullet->start();
