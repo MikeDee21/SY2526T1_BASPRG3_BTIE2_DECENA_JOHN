@@ -1,0 +1,19 @@
+#pragma once
+#include "GameObject.h"
+#include "draw.h"
+#include "common.h" 
+class SnakeHead :
+    public GameObject
+{
+	void start();
+	void update();
+	void draw();
+private:
+	SDL_Texture* texture; 
+	int x;
+	int y;
+	int width;
+	int height; 
+
+};
+
