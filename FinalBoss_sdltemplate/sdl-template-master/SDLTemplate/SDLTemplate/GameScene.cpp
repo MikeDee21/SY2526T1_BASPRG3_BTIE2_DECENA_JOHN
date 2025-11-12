@@ -5,6 +5,7 @@ GameScene::GameScene()
 	// Register and add game objects on constructor
 	snakehead = new SnakeHead();
 	this->addGameObject(snakehead); 
+
 }
 
 GameScene::~GameScene()
@@ -26,4 +27,5 @@ void GameScene::draw()
 void GameScene::update()
 {
 	Scene::update();
+
 }
