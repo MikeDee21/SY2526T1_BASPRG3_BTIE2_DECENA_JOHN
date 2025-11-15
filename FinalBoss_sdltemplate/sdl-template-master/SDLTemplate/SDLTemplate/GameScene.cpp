@@ -6,6 +6,8 @@ GameScene::GameScene()
 	snakehead = new SnakeHead();
 	this->addGameObject(snakehead); 
 	SpawnFood(); 
+
+	points = 0; 
 }
 
 GameScene::~GameScene()
@@ -15,14 +17,24 @@ GameScene::~GameScene()
 
 void GameScene::start()
 {
+
 	Scene::start();
 	// Initialize any scene logic here
-	
+	FoodEaten = SoundManager::loadSound("sound/PowerTime.ogg"); 
+	initFonts();
 }
 
 void GameScene::draw()
 {
-	Scene::draw();
+	Scene::draw();  
+
+	SDL_RenderPresent(app.renderer);
+	drawText(215, 20, 255, 255, 255, TEXT_RIGHT, "POINTS: %03d", points);
+
+	if (snakehead->getIsAlive() == false)
+	{
+			drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 255, 0, 0, TEXT_CENTER, "GAME OVER!");
+	}
 }
 
 void GameScene::update()
@@ -45,8 +57,10 @@ void GameScene::update()
 
 			if (collision == 1)
 			{
-				std::cout << "Food should be ded" << std::endl; 
-				DespawnFood(BodyGrow);
+				SoundManager::playSound(FoodEaten);
+				std::cout << "Food should be ded" << std::endl;
+				points = points + 1 * 2;  
+				DespawnFood(BodyGrow);  
 				SpawnFood();
 				break;
 				
@@ -56,6 +70,8 @@ void GameScene::update()
 
 
 }
+
+
 
 void GameScene::SpawnFood()
 {

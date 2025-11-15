@@ -5,6 +5,8 @@
 #include "SnakeFood.h"
 #include "util.h"
 #include <vector> 
+#include "text.h"
+#include "SoundManager.h"
 class GameScene : public Scene
 {
 public:
@@ -13,7 +15,12 @@ public:
 	void start();
 	void draw();
 	void update();
+	
 private:
+
+
+	int points; 
+	Mix_Chunk* FoodEaten;
 	SnakeHead* snakehead;
 	SnakeFood* snakefood;
 	std::vector<SnakeFood*> GoodFood;
