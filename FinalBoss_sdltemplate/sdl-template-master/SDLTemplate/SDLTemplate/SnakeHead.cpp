@@ -1,4 +1,5 @@
 ﻿#include "SnakeHead.h"
+#include "SnakeFood.h"
 void SnakeHead::start()
 {
 	texture = loadTexture("gfx/SnakeHead.jpg");
@@ -101,12 +102,24 @@ void SnakeHead::KillSnake()
     isAlive = false; 
 }
 
-int SnakeHead::getPosX()
+
+
+int SnakeHead::getPositionX()
 {
     return x;
 }
 
-int SnakeHead::getPosY()
+int SnakeHead::getPositionY()
 {
-    return y; 
+    return y;
+}
+
+int SnakeHead::getWidth()
+{
+    return width;
+}
+
+int SnakeHead::getHeight() 
+{
+    return height;
 }

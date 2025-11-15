@@ -2,17 +2,18 @@
 #include "GameObject.h"
 #include "draw.h"
 #include "common.h" 
-#include "SoundManager.h"
-class Food : public GameObject
+
+
+class SnakeFood : public GameObject
 {
 public:
 
-	Food();
-	~Food();
-	void start() override;
-	void update()override;
-	void draw()override;
-	void setPosition(int xPos, int yPos);
+	SnakeFood();
+	~SnakeFood();
+	virtual void start() override;
+	virtual void update() override;
+	virtual void draw() override;
+	virtual void setPosition(int xPos, int yPos);
 	int getPositionX();
 	int getPositionY();
 	int getWidth();
@@ -25,5 +26,4 @@ private:
 	int height;
 	SDL_Texture* texture;
 };
-
 

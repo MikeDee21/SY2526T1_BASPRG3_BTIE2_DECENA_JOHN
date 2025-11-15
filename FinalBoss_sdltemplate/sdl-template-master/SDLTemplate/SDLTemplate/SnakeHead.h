@@ -3,17 +3,21 @@
 #include "draw.h"
 #include "common.h" 
 #include "SoundManager.h"
+#include <vector> 
 
-class SnakeHead :
-    public GameObject
+class SnakeHead : public GameObject
 {
+public:
 	void start();
 	void update();
 	void draw();
 	bool getIsAlive(); 
 	void KillSnake(); 
-	int getPosX();
-	int getPosY();
+	int getPositionX();
+	int getPositionY();
+	int getWidth();
+	int getHeight();
+
 private:
 	SDL_Texture* texture; 
 	int x;

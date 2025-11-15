@@ -43,11 +43,11 @@ int Bullet::getPositionX()
 {
 	return x;
 }
+
 int Bullet::getPositionY()
 {
 	return y;
 }
-
 
 int Bullet::getHeight()
 {
@@ -55,12 +55,11 @@ int Bullet::getHeight()
 }
 
 
-
-
 int Bullet::getWidth()
 {
 	return width;
 }
+
 Side Bullet::getSide()
 {
 	return side; 

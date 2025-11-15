@@ -228,8 +228,9 @@ void GameScene::update()
 
 			if (collision == 1)
 			{
-				
+		
 				SoundManager::playSound(sound2);
+
 				DespawnPowerUp(ExtraFire);
 				player->BoostFire();
 				break;

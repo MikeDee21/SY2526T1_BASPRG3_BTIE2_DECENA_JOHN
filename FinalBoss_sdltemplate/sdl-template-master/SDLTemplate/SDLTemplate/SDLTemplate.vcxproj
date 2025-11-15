@@ -20,13 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="draw.cpp" />
-    <ClCompile Include="Food.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="init.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SnakeFood.cpp" />
     <ClCompile Include="SnakeHead.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="text.cpp" />
@@ -37,13 +37,13 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="defs.h" />
     <ClInclude Include="draw.h" />
-    <ClInclude Include="Food.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="init.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SnakeFood.h" />
     <ClInclude Include="SnakeHead.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="text.h" />

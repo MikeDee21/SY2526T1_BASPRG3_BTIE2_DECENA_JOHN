@@ -136,16 +136,49 @@ void Boss::draw()
     SDL_RenderCopy(app.renderer, texture, NULL, &dstRect);
 }
 
-void Boss::setPlayerTarget(Player* player) { playerTarget = player; }
-void Boss::setPosition(int xPos, int yPos) { x = xPos; y = yPos; }
-void Boss::GetHit() { BossHealth--; }
+void Boss::setPlayerTarget(Player* player) 
+{ 
+    playerTarget = player; 
+}
 
-int Boss::getPositionX() { return (int)x; }
-int Boss::getPositionY() { return (int)y; }
-int Boss::getHeight() { return height; }
-int Boss::getWidth() { return width; }
-int Boss::GetBossHealth() { return BossHealth; }
-FireMode Boss::GetMode() { return currentFireMode; }
+void Boss::setPosition(int xPos, int yPos) 
+{ 
+    x = xPos; y = yPos;
+}
+void Boss::GetHit() 
+{ 
+    BossHealth--; 
+}
+
+int Boss::getPositionX() 
+{ 
+    return (int)x;
+}
+
+int Boss::getPositionY() 
+{ 
+ return (int)y; 
+}
+
+int Boss::getHeight() 
+{ 
+    return height;
+}
+
+int Boss::getWidth() 
+{ 
+    return width; 
+}
+
+int Boss::GetBossHealth() 
+{
+    return BossHealth;
+}
+
+FireMode Boss::GetMode() 
+{ 
+    return currentFireMode;
+}
 
 void Boss::GiveInvul()
 {
