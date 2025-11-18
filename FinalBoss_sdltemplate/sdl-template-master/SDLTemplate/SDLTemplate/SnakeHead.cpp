@@ -12,17 +12,22 @@ void SnakeHead::start()
     width = 50;
     height = 50;
 
+    // IMPORTANT: initialize previous position
+    prevX = x;
+    prevY = y;
+
     //Constantly moving & moves right by default 
 
     dirX = 1;
     dirY = 0;
 
     //movement timer for tile-based feel
-    MoveTimer = 10;
+    MoveTimer = 18;
     CurrMoveTimer = 0;
 
     //snake state
     isAlive = true; 
+  
     SDL_QueryTexture(texture, NULL, NULL, &width, &height);
     DeadSound = SoundManager::loadSound("sound/Fahh.ogg");
 }
@@ -32,6 +37,7 @@ void SnakeHead::start()
 
 void SnakeHead::update()
 {
+   
     // Decrement movement cooldown each frame
     if (CurrMoveTimer > 0)
         CurrMoveTimer--;
@@ -63,6 +69,11 @@ void SnakeHead::update()
         // Move only when timer hits 0
         if (CurrMoveTimer == 0)
         {
+            //get previous x & y 
+
+            prevX = x;
+            prevY = y;
+
             x += dirX;
             y += dirY;
 
@@ -122,4 +133,14 @@ int SnakeHead::getWidth()
 int SnakeHead::getHeight() 
 {
     return height;
+}
+
+int SnakeHead::getPrevX()
+{
+    return prevX;
+}
+
+int SnakeHead::getPrevY()
+{
+    return prevY; 
 }

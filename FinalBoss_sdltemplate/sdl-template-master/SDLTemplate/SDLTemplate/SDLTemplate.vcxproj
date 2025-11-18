@@ -26,6 +26,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SnakeBody.cpp" />
     <ClCompile Include="SnakeFood.cpp" />
     <ClCompile Include="SnakeHead.cpp" />
     <ClCompile Include="SoundManager.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SnakeBody.h" />
     <ClInclude Include="SnakeFood.h" />
     <ClInclude Include="SnakeHead.h" />
     <ClInclude Include="SoundManager.h" />

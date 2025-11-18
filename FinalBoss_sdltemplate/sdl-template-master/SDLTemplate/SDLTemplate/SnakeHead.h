@@ -4,6 +4,8 @@
 #include "common.h" 
 #include "SoundManager.h"
 #include <vector> 
+#include "SnakeBody.h"
+
 
 class SnakeHead : public GameObject
 {
@@ -17,11 +19,15 @@ public:
 	int getPositionY();
 	int getWidth();
 	int getHeight();
+	int getPrevX();
+	int getPrevY();
 
 private:
 	SDL_Texture* texture; 
 	int x;
 	int y;
+	int prevX;
+	int prevY; 
 	int width;
 	int height; 
 	float MoveTimer;
@@ -29,6 +35,7 @@ private:
 	float dirX;
 	float dirY;
 	bool isAlive; 
+	
 	Mix_Chunk* DeadSound;
 };
 

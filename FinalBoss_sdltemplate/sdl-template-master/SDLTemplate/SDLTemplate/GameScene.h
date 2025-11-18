@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "SnakeHead.h" 
 #include "SnakeFood.h"
+#include "SnakeBody.h"
 #include "util.h"
 #include <vector> 
 #include "text.h"
@@ -15,16 +16,24 @@ public:
 	void start();
 	void draw();
 	void update();
+
 	
 private:
 
-
 	int points; 
+
 	Mix_Chunk* FoodEaten;
+
 	SnakeHead* snakehead;
+
 	SnakeFood* snakefood;
 	std::vector<SnakeFood*> GoodFood;
+
+	SnakeBody* snakebody; 
+	std::vector<SnakeBody*>bodies;
+	
 	void SpawnFood();
 	void DespawnFood(SnakeFood* BodyGrow); 
+	void addSegment();
 };
 

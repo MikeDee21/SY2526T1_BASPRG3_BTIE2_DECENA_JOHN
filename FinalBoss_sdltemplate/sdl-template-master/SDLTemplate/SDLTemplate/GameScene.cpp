@@ -2,12 +2,21 @@
 
 GameScene::GameScene()
 {
-	// Register and add game objects on constructor
 	snakehead = new SnakeHead();
-	this->addGameObject(snakehead); 
-	SpawnFood(); 
+	snakehead->start();
+	addGameObject(snakehead);
 
-	points = 0; 
+	// OPTIONAL: Start with ONE body segment
+	//SnakeBody* first = new SnakeBody(snakehead->getPositionX() - 1, snakehead->getPositionY());
+	//first->setHeadTarget(snakehead);
+	//first->setPrevPosition(first->getX(), first->getY());
+	//first->start();
+	//addGameObject(first);
+
+
+	addSegment(); 
+	points = 0;
+	SpawnFood();
 }
 
 GameScene::~GameScene()
@@ -17,30 +26,39 @@ GameScene::~GameScene()
 
 void GameScene::start()
 {
-
 	Scene::start();
-	// Initialize any scene logic here
-	FoodEaten = SoundManager::loadSound("sound/PowerTime.ogg"); 
+	FoodEaten = SoundManager::loadSound("sound/PowerTime.ogg");
 	initFonts();
 }
 
 void GameScene::draw()
 {
-	Scene::draw();  
+	Scene::draw();
+
+	snakehead->draw();
+	for (auto segment : bodies)
+		segment->draw();
 
 	SDL_RenderPresent(app.renderer);
+
 	drawText(215, 20, 255, 255, 255, TEXT_RIGHT, "POINTS: %03d", points);
 
-	if (snakehead->getIsAlive() == false)
-	{
-			drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 255, 0, 0, TEXT_CENTER, "GAME OVER!");
-	}
+	if (!snakehead->getIsAlive())
+		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 255, 0, 0, TEXT_CENTER, "GAME OVER!");
 }
+
 
 void GameScene::update()
 {
 
 	Scene::update();
+
+	snakehead->update();
+
+	for (auto segment : bodies) {
+		segment->update();
+	}
+
 	for (int i = 0; i < objects.size(); i++)
 	{
 		SnakeFood* BodyGrow = dynamic_cast<SnakeFood*>(objects[i]);
@@ -62,6 +80,7 @@ void GameScene::update()
 				points = points + 1 * 2;  
 				DespawnFood(BodyGrow);  
 				SpawnFood();
+				addSegment();
 				break;
 				
 			}
@@ -105,5 +124,37 @@ void GameScene::DespawnFood(SnakeFood* BodyGrow)
 		GoodFood.erase(GoodFood.begin() + index);
 		delete BodyGrow;              
 	}
+}
+
+// --- Add a new segment ---
+void GameScene::addSegment()
+{
+	std::cout << "There should be one more segment" << std::endl; 
+	SnakeBody* lastSegment = nullptr;
+	if (!bodies.empty())
+		lastSegment = bodies.back();
+
+	int newX, newY;
+	if (lastSegment)
+	{
+		newX = lastSegment->getPrevX();
+		newY = lastSegment->getPrevY();
+	}
+	else
+	{
+		// First segment follows head
+		newX = snakehead->getPrevX();
+		newY = snakehead->getPrevY();
+	}
+
+	SnakeBody* newSegment = new SnakeBody(newX, newY);
+	if (lastSegment)
+		newSegment->setFollowTarget(lastSegment);
+	else
+		newSegment->setHeadTarget(snakehead);
+
+	newSegment->start();
+	addGameObject(newSegment);
+	bodies.push_back(newSegment);
 }
 
