@@ -6,15 +6,7 @@ GameScene::GameScene()
 	snakehead->start();
 	addGameObject(snakehead);
 
-	// OPTIONAL: Start with ONE body segment
-	//SnakeBody* first = new SnakeBody(snakehead->getPositionX() - 1, snakehead->getPositionY());
-	//first->setHeadTarget(snakehead);
-	//first->setPrevPosition(first->getX(), first->getY());
-	//first->start();
-	//addGameObject(first);
 
-
-	addSegment(); 
 	points = 0;
 	SpawnFood();
 }
@@ -124,12 +116,12 @@ void GameScene::DespawnFood(SnakeFood* BodyGrow)
 		GoodFood.erase(GoodFood.begin() + index);
 		delete BodyGrow;              
 	}
+
 }
 
 // --- Add a new segment ---
 void GameScene::addSegment()
 {
-	std::cout << "There should be one more segment" << std::endl; 
 	SnakeBody* lastSegment = nullptr;
 	if (!bodies.empty())
 		lastSegment = bodies.back();
@@ -152,9 +144,16 @@ void GameScene::addSegment()
 		newSegment->setFollowTarget(lastSegment);
 	else
 		newSegment->setHeadTarget(snakehead);
-
 	newSegment->start();
 	addGameObject(newSegment);
 	bodies.push_back(newSegment);
+
+	for (int i = 0; i < bodies.size(); i++)
+	{
+		std::cout << "Body: " << i << std::endl;
+		std::cout << "X: " << newSegment->getX() << std::endl;
+		std::cout << "Y: " << newSegment->getY() << std::endl;
+
+	}
 }
 

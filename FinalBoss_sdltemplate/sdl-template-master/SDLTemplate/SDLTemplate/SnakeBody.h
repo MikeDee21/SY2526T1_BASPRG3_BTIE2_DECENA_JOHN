@@ -25,10 +25,11 @@ public:
 private:
     int x, y;       // current position
     int prevX, prevY; // previous position
+    float BodyMoveTimer;
+    float BodyCurrMoveTimer;
 
     int width, height; 
     bool hasMoved; 
-    bool  firstUpdate = true; 
     SnakeBody* followTarget = nullptr;
     SnakeHead* headTarget = nullptr;
 

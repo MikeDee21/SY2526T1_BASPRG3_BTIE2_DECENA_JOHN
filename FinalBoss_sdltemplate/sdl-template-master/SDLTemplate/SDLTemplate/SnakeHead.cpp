@@ -23,7 +23,7 @@ void SnakeHead::start()
 
     //movement timer for tile-based feel
     MoveTimer = 18;
-    CurrMoveTimer = 0;
+    CurrMoveTimer = MoveTimer;
 
     //snake state
     isAlive = true; 

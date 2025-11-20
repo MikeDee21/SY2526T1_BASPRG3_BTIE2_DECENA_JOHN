@@ -1,5 +1,6 @@
-#include "SnakeBody.h"
-SnakeBody::SnakeBody(int startX, int startY) {
+﻿#include "SnakeBody.h"
+SnakeBody::SnakeBody(int startX, int startY)
+{
     x = startX;
     y = startY;
     prevX = x;
@@ -10,6 +11,10 @@ void SnakeBody::start()
 {
     width = CELL_SIZE;
     height = CELL_SIZE;
+
+    //movement timer for tile-based feel
+    BodyMoveTimer = 18;
+    BodyCurrMoveTimer = BodyMoveTimer; 
  
 }
 
@@ -17,20 +22,26 @@ void SnakeBody::update() {
     prevX = x;
     prevY = y;
 
-    if (firstUpdate) {
-        firstUpdate = false;
-        return; // skip following on the first frame
+    if (BodyCurrMoveTimer > 0)
+        BodyCurrMoveTimer--;
+
+    if (BodyCurrMoveTimer == 0)
+    {
+        if (headTarget)
+        {
+            x = headTarget->getPrevX();
+            y = headTarget->getPrevY();
+        }
+        else if (followTarget)
+        {
+            x = followTarget->getPrevX();
+            y = followTarget->getPrevY();
+        }
+
+        BodyCurrMoveTimer = BodyMoveTimer;   // ← RESET TIMER
     }
 
-    if (headTarget)
-        x = headTarget->getPrevX();
-    else if (followTarget)
-        x = followTarget->getPrevX();
 
-    if (headTarget)
-        y = headTarget->getPrevY();
-    else if (followTarget)
-        y = followTarget->getPrevY();
 }
 
 void SnakeBody::draw() {
