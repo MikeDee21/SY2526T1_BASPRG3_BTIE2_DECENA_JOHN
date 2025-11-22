@@ -23,7 +23,7 @@ private:
 	int points; 
 
 	Mix_Chunk* FoodEaten;
-
+	Mix_Chunk* DeadSound; 
 	SnakeHead* snakehead;
 
 	SnakeFood* snakefood;

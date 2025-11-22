@@ -19,6 +19,8 @@ public:
     void setPrevPosition(int px, int py) { prevX = px; prevY = py; }
     int getX() { return x; }
     int getY() { return y; }
+    int getWidth() { return width; }
+    int getHeight() { return height; }
     int getPrevX() { return prevX; }
     int getPrevY() { return prevY; }
 

@@ -1,4 +1,4 @@
-#include "GameScene.h"
+﻿#include "GameScene.h"
 
 GameScene::GameScene()
 {
@@ -6,7 +6,7 @@ GameScene::GameScene()
 	snakehead->start();
 	addGameObject(snakehead);
 
-
+	DeadSound = SoundManager::loadSound("sound/Fahh.ogg"); 
 	points = 0;
 	SpawnFood();
 }
@@ -53,6 +53,26 @@ void GameScene::update()
 
 	for (int i = 0; i < objects.size(); i++)
 	{
+		SnakeBody* snakebody = dynamic_cast<SnakeBody*>(objects[i]);
+		if (snakebody != NULL)
+		{
+			int collision = checkCollision(
+				snakehead->getPositionX() * CELL_SIZE,
+				snakehead->getPositionY() * CELL_SIZE,
+				snakehead->getWidth(), snakehead->getHeight(),
+
+				snakebody->getX() * CELL_SIZE,
+				snakebody->getY() * CELL_SIZE,
+				snakebody->getWidth(), snakebody->getHeight());
+
+			if (collision == 1)
+			{
+				SoundManager::playSound(DeadSound);
+				snakehead->KillSnake();
+				break;
+
+			}
+		}
 		SnakeFood* BodyGrow = dynamic_cast<SnakeFood*>(objects[i]);
 		if (BodyGrow != NULL)
 		{
@@ -63,24 +83,47 @@ void GameScene::update()
 
 				BodyGrow->getPositionX() * CELL_SIZE,
 				BodyGrow->getPositionY() * CELL_SIZE,
-				BodyGrow->getWidth(), BodyGrow->getHeight()); 
+				BodyGrow->getWidth(), BodyGrow->getHeight());
 
 			if (collision == 1)
 			{
 				SoundManager::playSound(FoodEaten);
-				std::cout << "Food should be ded" << std::endl;
-				points = points + 1 * 2;  
-				DespawnFood(BodyGrow);  
+				points = points + 1 * 2;
+				DespawnFood(BodyGrow);
 				SpawnFood();
 				addSegment();
 				break;
-				
+
 			}
+			
+				// ---- BODY overlaps food (undesired spawn) → respawn ----
+				for (auto SnakeBody : bodies)
+				{
+					int bodyCollision = checkCollision(
+						SnakeBody->getX() * CELL_SIZE,
+						SnakeBody->getY() * CELL_SIZE,
+						SnakeBody->getWidth(), SnakeBody->getHeight(),
+
+						BodyGrow->getPositionX() * CELL_SIZE,
+						BodyGrow->getPositionY() * CELL_SIZE,
+						BodyGrow->getWidth(), BodyGrow->getHeight());
+
+					if (bodyCollision == 1)
+					{
+						// Remove and respawn food
+						std::cout << "Food & body collided" << std::endl;
+						DespawnFood(BodyGrow);
+						SpawnFood();
+						break;
+					}
+
+
+
+				}
 		}
 	}
-
-
 }
+
 
 
 
@@ -142,18 +185,11 @@ void GameScene::addSegment()
 	SnakeBody* newSegment = new SnakeBody(newX, newY);
 	if (lastSegment)
 		newSegment->setFollowTarget(lastSegment);
+
 	else
 		newSegment->setHeadTarget(snakehead);
-	newSegment->start();
-	addGameObject(newSegment);
-	bodies.push_back(newSegment);
-
-	for (int i = 0; i < bodies.size(); i++)
-	{
-		std::cout << "Body: " << i << std::endl;
-		std::cout << "X: " << newSegment->getX() << std::endl;
-		std::cout << "Y: " << newSegment->getY() << std::endl;
-
-	}
+		newSegment->start();
+		addGameObject(newSegment);
+		bodies.push_back(newSegment);
 }
 

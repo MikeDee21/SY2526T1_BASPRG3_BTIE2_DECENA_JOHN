@@ -83,7 +83,6 @@ void SnakeHead::update()
                 // Snake hit the border → player dies
                 isAlive = false;    
                 SoundManager::playSound(DeadSound);
-
                 std::cout << "you ded" << std::endl; 
                
             }
@@ -93,7 +92,7 @@ void SnakeHead::update()
 
 void SnakeHead::draw() 
 {
-  
+    
     SDL_Rect dest;
     dest.x = x * CELL_SIZE + (CELL_SIZE - width) / 2;
     dest.y = y * CELL_SIZE + (CELL_SIZE - height) / 2;
