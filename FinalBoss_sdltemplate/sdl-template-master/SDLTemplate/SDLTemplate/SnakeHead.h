@@ -21,6 +21,7 @@ public:
 	int getHeight();
 	int getPrevX();
 	int getPrevY();
+	bool getPlayerStart();
 
 private:
 	SDL_Texture* texture; 
@@ -34,6 +35,7 @@ private:
 	float CurrMoveTimer; 
 	float dirX;
 	float dirY;
+	bool PlayerStart; 
 	bool isAlive; 
 	
 	Mix_Chunk* DeadSound;

@@ -8,6 +8,7 @@ GameScene::GameScene()
 
 	DeadSound = SoundManager::loadSound("sound/Fahh.ogg"); 
 	points = 0;
+	Highscore = 0; 
 	SpawnFood();
 }
 
@@ -21,6 +22,7 @@ void GameScene::start()
 	Scene::start();
 	FoodEaten = SoundManager::loadSound("sound/PowerTime.ogg");
 	initFonts();
+	
 }
 
 void GameScene::draw()
@@ -35,8 +37,20 @@ void GameScene::draw()
 
 	drawText(215, 20, 255, 255, 255, TEXT_RIGHT, "POINTS: %03d", points);
 
+	drawText(985, 20, 255, 255, 255, TEXT_RIGHT, "HIGHEST SCORE: %03d", Highscore);
+
+	if (snakehead->getPlayerStart() == true) 
+	{
+		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50, 255, 0, 0, TEXT_CENTER, "PRESS E TO START");
+	}
+
 	if (!snakehead->getIsAlive())
+	{
 		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 255, 0, 0, TEXT_CENTER, "GAME OVER!");
+
+		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50, 255, 255, 255, TEXT_CENTER,
+			"PRESS R TO RESTART"); 
+	}
 }
 
 
@@ -65,10 +79,13 @@ void GameScene::update()
 				snakebody->getY() * CELL_SIZE,
 				snakebody->getWidth(), snakebody->getHeight());
 
-			if (collision == 1)
+			if (collision == 1 && snakehead->getIsAlive() == true)
 			{
 				SoundManager::playSound(DeadSound);
 				snakehead->KillSnake();
+
+				
+
 				break;
 
 			}
@@ -88,7 +105,7 @@ void GameScene::update()
 			if (collision == 1)
 			{
 				SoundManager::playSound(FoodEaten);
-				points = points + 1 * 2;
+				points++;
 				DespawnFood(BodyGrow);
 				SpawnFood();
 				addSegment();
@@ -121,6 +138,51 @@ void GameScene::update()
 
 				}
 		}
+	}
+	if (!snakehead->getIsAlive())
+	{
+		if (points > Highscore) {
+			Highscore = points;  // update the stored high score
+		}
+		if (app.keyboard[SDL_SCANCODE_R])
+		{
+			gameRestart(); 
+		}
+	}
+}
+
+void GameScene::gameRestart()
+{
+	// Reset points
+	
+	points = 0; 
+
+	// Delete old head & segments
+	delete snakehead;
+	for (auto b : bodies)
+		delete b;
+	bodies.clear();
+
+	// Delete all food
+	for (auto f : GoodFood)
+		delete f;
+	GoodFood.clear();
+
+	// Clear all game objects (important!)
+	objects.clear();
+
+	// Respawn head & add it to objects
+	snakehead = new SnakeHead();
+	snakehead->start();
+	addGameObject(snakehead);
+
+	// Respawn first food
+	SpawnFood();
+
+	// Add back startup message
+	if (snakehead->getPlayerStart() == true)
+	{
+		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50, 255, 0, 0, TEXT_CENTER, "PRESS E TO START");
 	}
 }
 

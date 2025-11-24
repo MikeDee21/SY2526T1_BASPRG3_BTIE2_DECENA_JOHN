@@ -16,11 +16,12 @@ public:
 	void start();
 	void draw();
 	void update();
+	void gameRestart();
 
 	
 private:
 
-	int points; 
+	int points, Highscore; 
 
 	Mix_Chunk* FoodEaten;
 	Mix_Chunk* DeadSound; 

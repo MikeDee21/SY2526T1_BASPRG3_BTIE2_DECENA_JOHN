@@ -13,7 +13,7 @@ void SnakeBody::start()
     height = CELL_SIZE;
 
     //movement timer for tile-based feel
-    BodyMoveTimer = 18;
+    BodyMoveTimer = 20;
     BodyCurrMoveTimer = BodyMoveTimer; 
  
 }
