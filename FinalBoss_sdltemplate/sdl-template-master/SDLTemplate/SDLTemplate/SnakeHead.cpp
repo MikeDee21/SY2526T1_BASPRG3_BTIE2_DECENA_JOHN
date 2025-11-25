@@ -25,6 +25,10 @@ void SnakeHead::start()
     MoveTimer = 20;
     CurrMoveTimer = MoveTimer;
 
+    //To prevent overlapping inputs
+    InputDelay = 20;
+    CurrInputTimer = InputDelay; 
+
     //snake state
     isAlive = true; 
     PlayerStart = true; 
@@ -32,6 +36,11 @@ void SnakeHead::start()
   
     SDL_QueryTexture(texture, NULL, NULL, &width, &height);
     DeadSound = SoundManager::loadSound("sound/Fahh.ogg");
+    DeadSound->volume = 45;
+
+    TurnNoise = SoundManager::loadSound("sound/Cartoon Slip.ogg");
+    TurnNoise->volume = 20;
+
 }
 
 
@@ -44,6 +53,9 @@ void SnakeHead::update()
 
     if (PlayerStart == false)
     {
+        if (CurrInputTimer > 0)
+         CurrInputTimer--;
+
         // Decrement movement cooldown each frame
         if (CurrMoveTimer > 0)
          CurrMoveTimer--;
@@ -51,26 +63,34 @@ void SnakeHead::update()
         // Handle direction input (don’t move yet)
         if (!isAlive) return;
         {
-            if (app.keyboard[SDL_SCANCODE_W] && dirY == 0)
+            if (app.keyboard[SDL_SCANCODE_W] && dirY == 0 && CurrInputTimer <= 0)
             {
-             dirX = 0;
-             dirY = -1;
+                 dirX = 0;
+                 dirY = -1;
+                 SoundManager::playSound(TurnNoise);
+                 CurrInputTimer = InputDelay;
             }
-             else if (app.keyboard[SDL_SCANCODE_S] && dirY == 0)
-             {
+            else if (app.keyboard[SDL_SCANCODE_S] && dirY ==  0 && CurrInputTimer <= 0)
+            {
                  dirX = 0;
                  dirY = 1;
-             }
-             else if (app.keyboard[SDL_SCANCODE_A] && dirX == 0)
-             {
+                 SoundManager::playSound(TurnNoise);
+                 CurrInputTimer = InputDelay;
+            }
+            else if (app.keyboard[SDL_SCANCODE_A] && dirX == 0 && CurrInputTimer <= 0)
+            {
                  dirX = -1;
                  dirY = 0;
-             }
-             else if (app.keyboard[SDL_SCANCODE_D] && dirX == 0)
-             {
+                 SoundManager::playSound(TurnNoise);
+                 CurrInputTimer = InputDelay;
+            }
+            else if (app.keyboard[SDL_SCANCODE_D] && dirX == 0 && CurrInputTimer <= 0)
+            {
                  dirX = 1;
                  dirY = 0;
-             }
+                 SoundManager::playSound(TurnNoise);
+                 CurrInputTimer = InputDelay;
+            }
 
              // Move only when timer hits 0
              if (CurrMoveTimer == 0)
@@ -94,8 +114,6 @@ void SnakeHead::update()
                  }
              }
         }
-
-
     }
 }
 

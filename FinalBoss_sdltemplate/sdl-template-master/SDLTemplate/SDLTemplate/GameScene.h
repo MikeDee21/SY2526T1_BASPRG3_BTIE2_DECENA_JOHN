@@ -8,6 +8,7 @@
 #include <vector> 
 #include "text.h"
 #include "SoundManager.h"
+
 class GameScene : public Scene
 {
 public:
@@ -24,7 +25,9 @@ private:
 	int points, Highscore; 
 
 	Mix_Chunk* FoodEaten;
-	Mix_Chunk* DeadSound; 
+	Mix_Chunk* DeadSound;  
+	Mix_Music* Calculator;
+	Mix_Music* CoCo;
 	SnakeHead* snakehead;
 
 	SnakeFood* snakefood;

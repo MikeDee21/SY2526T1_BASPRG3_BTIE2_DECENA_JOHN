@@ -19,27 +19,31 @@ void SnakeBody::start()
 }
 
 void SnakeBody::update() {
-    prevX = x;
-    prevY = y;
+  
+   
+        if (BodyCurrMoveTimer > 0)
+            BodyCurrMoveTimer--;
 
-    if (BodyCurrMoveTimer > 0)
-        BodyCurrMoveTimer--;
-
-    if (BodyCurrMoveTimer == 0)
-    {
-        if (headTarget)
+        if (BodyCurrMoveTimer == 0)
         {
-            x = headTarget->getPrevX();
-            y = headTarget->getPrevY();
-        }
-        else if (followTarget)
-        {
-            x = followTarget->getPrevX();
-            y = followTarget->getPrevY();
+
+            prevX = x;
+            prevY = y;
+
+            if (headTarget)
+            {
+                x = headTarget->getPrevX();
+                y = headTarget->getPrevY();
+            }
+            else if (followTarget)
+            {
+                x = followTarget->getPrevX();
+                y = followTarget->getPrevY();
+            }
+
+            BodyCurrMoveTimer = BodyMoveTimer;   // ← RESET TIMER
         }
 
-        BodyCurrMoveTimer = BodyMoveTimer;   // ← RESET TIMER
-    }
 
 
 }
@@ -49,15 +53,16 @@ void SnakeBody::draw() {
 
     if (followTarget == nullptr && headTarget != nullptr) {
         // First segment (follows head)
-        SDL_SetRenderDrawColor(app.renderer, 0, 255, 0, 255); // green
+        SDL_SetRenderDrawColor(app.renderer, 181, 109, 75, 255); 
     }
     else {
-        // Other segments
-        SDL_SetRenderDrawColor(app.renderer, 0, 0, 255, 255); // blue
+        // Other segments; Change the color when debugging body
+        SDL_SetRenderDrawColor(app.renderer, 181, 109, 75, 255);
     }
 
     SDL_RenderFillRect(app.renderer, &rect);
 } 
+
 void SnakeBody::setFollowTarget(SnakeBody* target) {
     followTarget = target;
 }

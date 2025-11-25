@@ -25,19 +25,16 @@ public:
 
 private:
 	SDL_Texture* texture; 
-	int x;
-	int y;
-	int prevX;
-	int prevY; 
-	int width;
-	int height; 
-	float MoveTimer;
-	float CurrMoveTimer; 
-	float dirX;
-	float dirY;
+	int x, y;
+	int prevX, prevY; 
+	int width, height; 
+	float MoveTimer,CurrMoveTimer; 
+	float dirX, dirY;
+	float InputDelay, CurrInputTimer;
 	bool PlayerStart; 
 	bool isAlive; 
 	
 	Mix_Chunk* DeadSound;
+	Mix_Chunk* TurnNoise; 
 };
 

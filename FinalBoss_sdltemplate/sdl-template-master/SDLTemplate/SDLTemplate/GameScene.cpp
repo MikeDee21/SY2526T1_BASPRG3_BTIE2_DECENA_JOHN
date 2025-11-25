@@ -5,10 +5,16 @@ GameScene::GameScene()
 	snakehead = new SnakeHead();
 	snakehead->start();
 	addGameObject(snakehead);
-
-	DeadSound = SoundManager::loadSound("sound/Fahh.ogg"); 
 	points = 0;
 	Highscore = 0; 
+
+	DeadSound = SoundManager::loadSound("sound/Fahh.ogg");
+	FoodEaten = SoundManager::loadSound("sound/PowerTime.ogg");
+
+	SoundManager::loadMusic("sound/DiddyBlud.ogg"); 
+	SoundManager::playMusic(1); 
+	Mix_VolumeMusic(20);
+
 	SpawnFood();
 }
 
@@ -20,7 +26,6 @@ GameScene::~GameScene()
 void GameScene::start()
 {
 	Scene::start();
-	FoodEaten = SoundManager::loadSound("sound/PowerTime.ogg");
 	initFonts();
 	
 }
@@ -48,7 +53,7 @@ void GameScene::draw()
 	{
 		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 255, 0, 0, TEXT_CENTER, "GAME OVER!");
 
-		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50, 255, 255, 255, TEXT_CENTER,
+		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 100, 255, 255, 255, TEXT_CENTER,
 			"PRESS R TO RESTART"); 
 	}
 }
@@ -82,10 +87,7 @@ void GameScene::update()
 			if (collision == 1 && snakehead->getIsAlive() == true)
 			{
 				SoundManager::playSound(DeadSound);
-				snakehead->KillSnake();
-
-				
-
+				snakehead->KillSnake(); 
 				break;
 
 			}
@@ -127,7 +129,7 @@ void GameScene::update()
 
 					if (bodyCollision == 1)
 					{
-						// Remove and respawn food
+					
 						std::cout << "Food & body collided" << std::endl;
 						DespawnFood(BodyGrow);
 						SpawnFood();
@@ -141,9 +143,12 @@ void GameScene::update()
 	}
 	if (!snakehead->getIsAlive())
 	{
+		Mix_HaltMusic();
+
 		if (points > Highscore) {
 			Highscore = points;  // update the stored high score
 		}
+
 		if (app.keyboard[SDL_SCANCODE_R])
 		{
 			gameRestart(); 
@@ -176,18 +181,29 @@ void GameScene::gameRestart()
 	snakehead->start();
 	addGameObject(snakehead);
 
+
 	// Respawn first food
 	SpawnFood();
+	if (Highscore >= 100)
+	{
+		SoundManager::loadMusic("sound/Remember me.ogg");
+		SoundManager::playMusic(1);
+		Mix_VolumeMusic(20);
+	}
+	else
+	{
+		SoundManager::loadMusic("sound/DiddyBlud.ogg");
+		SoundManager::playMusic(1);
+		Mix_VolumeMusic(20);
+	}
+
 
 	// Add back startup message
 	if (snakehead->getPlayerStart() == true)
 	{
-		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50, 255, 0, 0, TEXT_CENTER, "PRESS E TO START");
+		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50, 0, 0, 0, TEXT_CENTER, "PRESS E TO START");
 	}
 }
-
-
-
 
 void GameScene::SpawnFood()
 {

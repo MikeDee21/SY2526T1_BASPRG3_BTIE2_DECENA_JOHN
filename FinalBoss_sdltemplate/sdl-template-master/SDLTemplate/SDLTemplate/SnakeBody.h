@@ -11,8 +11,8 @@ class SnakeBody: public GameObject
 public:
     SnakeBody(int startX, int startY);
     void start() override;
-    void update() override; // follow the target
-    void draw() override;   // render segment
+    void update() override; 
+    void draw() override;   
 
     void setFollowTarget(SnakeBody* target); // follow another segment
     void setHeadTarget(SnakeHead* head);     // first segment follows head
@@ -27,11 +27,9 @@ public:
 private:
     int x, y;       // current position
     int prevX, prevY; // previous position
-    float BodyMoveTimer;
-    float BodyCurrMoveTimer;
+    float BodyMoveTimer, BodyCurrMoveTimer;
 
     int width, height; 
-    bool hasMoved; 
     SnakeBody* followTarget = nullptr;
     SnakeHead* headTarget = nullptr;
 
